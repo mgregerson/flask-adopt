@@ -1,7 +1,7 @@
 """Models for adopt app."""
 
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, redirect, render_template, request, flash
+from flask import Flask
 
 db = SQLAlchemy()
 
@@ -40,9 +40,6 @@ class Pet(db.Model):
         db.Text,
         nullable=False,
     )
-
-    # TODO: Add a checkConstraint for age
-    # (db.CheckConstraint(age.in_(['baby', 'young', 'adult', 'senior'])))
 
     notes = db.Column(
         db.Text,

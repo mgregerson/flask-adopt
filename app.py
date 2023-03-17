@@ -2,7 +2,7 @@
 
 import os
 
-from flask import Flask, redirect, render_template, request, flash
+from flask import Flask, redirect, render_template, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import AddPetForm, UpdatePetForm
 
@@ -22,7 +22,7 @@ connect_db(app)
 # Having the Debug Toolbar show redirects explicitly is often useful;
 # however, if you want to turn it off, you can uncomment this line:
 #
-# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 toolbar = DebugToolbarExtension(app)
 
@@ -36,7 +36,9 @@ def show_homepage():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_pet():
-    """Pet add form; handle adding pet."""
+    """Get Route: Displays the add pet form. 
+       Post Route: Allows the user to add a new pet to the homepage. Adds the new pet
+       to the database and redirects the user to the list of pets."""
 
     form = AddPetForm()
 
@@ -62,7 +64,9 @@ def add_pet():
 
 @app.route('/<int:id>', methods=['GET', 'POST'])
 def show_and_edit_pet_profile(id):
-    """Show/edit pet profile"""
+    """Get Route: Shows pet's profile.
+       Post Route: Allows the user to update the pet's information. Commits that information
+       to the database and redirects the user to the pet's profile."""
     
     pet = Pet.query.get(id)
     form = UpdatePetForm(obj=pet)
@@ -79,8 +83,6 @@ def show_and_edit_pet_profile(id):
         pet.notes = notes
         pet.available = available
         db.session.commit()
-
-        print('PET NOTES!!!!', pet.notes)
 
         return redirect(f'/{id}')
 

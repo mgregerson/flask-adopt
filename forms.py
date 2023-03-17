@@ -26,9 +26,7 @@ class UpdatePetForm(FlaskForm):
     """Form for updating pet information."""
 
     # NOTE: why coerce boolean to boolean?
-    available = SelectField('Is available?',
-                            choices=[(True, 'Yes'), (False, 'No')],
-                            coerce=bool)
+    available = BooleanField('Is available?')
     photo_url = StringField('Photo URL',
                             validators=[Optional(), URL(message='Please enter valid URL.')])
     notes = StringField('What do prospective adopters need to know about your pet?')
