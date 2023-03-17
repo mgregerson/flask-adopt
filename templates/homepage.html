@@ -5,10 +5,14 @@
   <li>
     {% if pet.photo_url %}
     <img src="{{ pet.photo_url }}" />
-    {% endif %} {{ pet.name }} is {% if pet.available %} is available! {% else
+    {% endif %}
+    {{ pet.name }} is {% if pet.available %} is available! {% else
     %} not available. {% endif %}
   </li>
   {% endfor %}
 </ul>
+<form action="/add" method="GET">
+  <button type="submit">Add a pet</button>
+</form>
 
 {% endblock %}

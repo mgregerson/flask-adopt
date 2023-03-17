@@ -1,10 +1,18 @@
-TODO: create add_pet_form form template
+{% extends 'base.html' %}
 
-<form id="add_pet_form" method="POST">
+{% block content %}
+
+<!-- PET INFO -->
+{{ pet.name }}
+{% if pet.photo_url %}
+  <img src="{{ pet.photo_url }}" />
+{% endif %}
+{{ pet.age }}
+{{ pet.species }}
+
+<!-- EDIT PET INFO -->
+<form id="update_pet_form" method="POST">
   {{ form.hidden_tag() }}
-  <!--add type=hidden form fields -->
-  <!-- NOTE: what is this comment?
-             where is the action on this form? -->
 
   {% for field in form if field.widget.input_type != 'hidden' %}
     <p>
@@ -20,3 +28,6 @@ TODO: create add_pet_form form template
 
   <button type="submit">Submit</button>
 </form>
+
+
+{% endblock %}

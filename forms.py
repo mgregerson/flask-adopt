@@ -1,28 +1,34 @@
 """Forms for adopt app."""
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, SelectField
+from wtforms import StringField, SelectField, BooleanField
+from wtforms.validators import InputRequired, Optional, URL, AnyOf
 
 
 class AddPetForm(FlaskForm):
     """Form for adding pets."""
 
-    name = StringField('Pet Name')
-    species = StringField('Species')
-    photo_url = StringField('Photo URL')
-    age = SelectField('Age', choices=[('baby', 'Baby'), 
-                                      ('young', 'Young'), 
-                                      ('adult', 'Adult'), 
+    name = StringField('Pet Name',
+                       validators=[InputRequired(message='Please enter valid name.')])
+    species = StringField('Species',
+                          validators=[AnyOf(['cat', 'dog', 'porcupine'], message='Only accepting cats, dogs, and porcupines.')])
+    photo_url = StringField('Photo URL',
+                            validators=[Optional(),
+                                        URL(message='Please enter valid URL.')])
+    age = SelectField('Age', choices=[('baby', 'Baby'),
+                                      ('young', 'Young'),
+                                      ('adult', 'Adult'),
                                       ('senior', 'Senior')])
     notes = StringField('What do prospective adopters need to know about your pet?')
 
 
+class UpdatePetForm(FlaskForm):
+    """Form for updating pet information."""
 
-
-# Create a form for adding pets. This should use Flask-WTF, and should have the following fields:
-
-# Pet name
-# Species
-# Photo URL
-# Age
-# Notes
-# This should be at the URL path /add. Add a link to this from the homepage.
+    # NOTE: why coerce boolean to boolean?
+    available = SelectField('Is available?',
+                            choices=[(True, 'Yes'), (False, 'No')],
+                            coerce=bool)
+    photo_url = StringField('Photo URL',
+                            validators=[Optional(), URL(message='Please enter valid URL.')])
+    notes = StringField('What do prospective adopters need to know about your pet?')
