@@ -4,6 +4,7 @@ import os
 
 from flask import Flask, redirect, render_template, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
+from forms import AddPetForm
 
 from models import connect_db, Pet
 
@@ -32,9 +33,21 @@ def show_homepage():
 
     return render_template('homepage.html', pets=pets)
 
+@app.route('/add', methods=['GET', 'POST']):
+def add_pet():
+    """Pet add form; handle adding pet."""
 
-# The homepage (at route /) should list the pets:
+    form = AddPetForm()
 
-# name
-# show photo, if present
-# display “Available” in bold if the pet is available for adoption
+    if form.validate_on_submit():
+        name = form.name.data
+        species = form.species.data
+        photo_url = form.photo_url.data
+        age = form.age.data
+        notes = form.notes.data
+
+        flash(f"Added {name} to our list of available pets! Let's find them a home!")
+        return redirect('/')
+    
+    else:
+        return render_template('add_pet_form.html', form=form)
