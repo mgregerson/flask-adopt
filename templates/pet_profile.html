@@ -1,33 +1,22 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <!-- PET INFO -->
-{{ pet.name }}
 {% if pet.photo_url %}
-  <img src="{{ pet.photo_url }}" />
-{% endif %}
-{{ pet.age }}
-{{ pet.species }}
+<img src="{{ pet.photo_url }}" /> <br />
+{% endif %} {{ pet.name }}: {{ pet.age }} {{ pet.species }}
 
 <!-- EDIT PET INFO -->
 <form id="update_pet_form" method="POST">
-  {{ form.hidden_tag() }}
-
-  {% for field in form if field.widget.input_type != 'hidden' %}
-    <p>
-      {{ field.label }}
-      {{ field }}
-
-      {% for error in field.errors %}
-        {{ error }}
-      {% endfor %}
-    </p>
+  {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+  'hidden' %}
+  <p>
+    {{ field.label }} {{ field }} {% for error in field.errors %} {{ error }} {%
+    endfor %}
+  </p>
 
   {% endfor %}
 
   <button type="submit">Submit</button>
 </form>
-
 
 {% endblock %}

@@ -28,6 +28,7 @@ toolbar = DebugToolbarExtension(app)
 
 @app.get('/')
 def show_homepage():
+    """Displays homepage and list of current pets at our adoption agency."""
     pets = Pet.query.all()
     print(type(pets[0].available), 'Is this updating?')
 
@@ -60,12 +61,12 @@ def add_pet():
         return render_template('add_pet_form.html', form=form)
 
 @app.route('/<int:id>', methods=['GET', 'POST'])
-def pet_profile(id):
+def show_and_edit_pet_profile(id):
     """Show/edit pet profile"""
-
-    form = UpdatePetForm()
+    
     pet = Pet.query.get(id)
-
+    form = UpdatePetForm(obj=pet)
+   
     if form.validate_on_submit():
 
         # grab updated data from form

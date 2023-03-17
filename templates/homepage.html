@@ -6,8 +6,8 @@
     {% if pet.photo_url %}
     <img src="{{ pet.photo_url }}" />
     {% endif %}
-    {{ pet.name }} is {% if pet.available %} is available! {% else
-    %} not available. {% endif %}
+    <a href="{{ pet.id }}">{{ pet.name }}</a> is {% if pet.available %} is
+    available! {% else %} not available. {% endif %}
   </li>
   {% endfor %}
 </ul>
