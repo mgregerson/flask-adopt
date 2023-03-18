@@ -1,10 +1,6 @@
 <form id="add_pet_form" method="POST">
-  {{ form.hidden_tag() }}
-  <!--add type=hidden form fields -->
-  <!-- NOTE: what is this comment?
-             where is the action on this form? -->
-
-  {% for field in form if field.widget.input_type != 'hidden' %}
+  {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+  'hidden' %}
   <p>
     {{ field.label }} {{ field }} {% for error in field.errors %} {{ error }} {%
     endfor %}

@@ -22,20 +22,23 @@ class Pet(db.Model):
         db.Integer,
         primary_key=True
     )
+    
     name = db.Column(
         db.Text,
         nullable=False
     )
+
     species = db.Column(
         db.Text,
         nullable=False
     )
+
     photo_url = db.Column(
         db.Text,
         nullable=False,
-        default = ''
-
+        default=''
     )
+
     age = db.Column(
         db.Text,
         nullable=False,

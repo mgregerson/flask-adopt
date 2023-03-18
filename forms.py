@@ -7,9 +7,13 @@ from wtforms.validators import InputRequired, Optional, URL, AnyOf
 
 class AddPetForm(FlaskForm):
     """Form for adding pets."""
-
-    name = StringField('Pet Name',
-                       validators=[InputRequired(message='Please enter valid name.')])
+# TODO: Update formatting for properties in our form class.
+    name = StringField(
+        'Pet Name',
+        validators=[
+        InputRequired(message='Please enter valid name.')
+        ]) 
+    # Select field would work better for only allowing one of these three animals.
     species = StringField('Species',
                           validators=[AnyOf(['cat', 'dog', 'porcupine'], message='Only accepting cats, dogs, and porcupines.')])
     photo_url = StringField('Photo URL',
@@ -19,14 +23,13 @@ class AddPetForm(FlaskForm):
                                       ('young', 'Young'),
                                       ('adult', 'Adult'),
                                       ('senior', 'Senior')])
-    notes = StringField('What do prospective adopters need to know about your pet?')
+    notes = StringField('What do prospective adopters need to know about your pet?', validators=[Optional()])
 
 
 class UpdatePetForm(FlaskForm):
     """Form for updating pet information."""
 
-    # NOTE: why coerce boolean to boolean?
     available = BooleanField('Is available?')
     photo_url = StringField('Photo URL',
                             validators=[Optional(), URL(message='Please enter valid URL.')])
-    notes = StringField('What do prospective adopters need to know about your pet?')
+    notes = StringField('What do prospective adopters need to know about your pet?', validators=[Optional()])

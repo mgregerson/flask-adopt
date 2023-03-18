@@ -68,7 +68,7 @@ def show_and_edit_pet_profile(id):
        Post Route: Allows the user to update the pet's information. Commits that information
        to the database and redirects the user to the pet's profile."""
     
-    pet = Pet.query.get(id)
+    pet = Pet.query.get_or_404(id)
     form = UpdatePetForm(obj=pet)
    
     if form.validate_on_submit():
